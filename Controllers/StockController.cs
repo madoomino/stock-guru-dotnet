@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockGuru.Data;
+using StockGuru.Mappers;
 
 namespace StockGuru.Controllers;
 
-[Route("api/stock")]
+[Route("api/stocks")]
 [ApiController]
 public class StockController(ApplicationDbContext context) : ControllerBase
 {
@@ -12,7 +13,7 @@ public class StockController(ApplicationDbContext context) : ControllerBase
   [HttpGet]
   public IActionResult GetAll()
   {
-    var stocks = _context.Stocks.ToList();
+    var stocks = _context.Stocks.ToList().Select(s => s.ToStockDto());
     return Ok(stocks);
   }
 
@@ -24,7 +25,7 @@ public class StockController(ApplicationDbContext context) : ControllerBase
     {
       return NotFound();
     }
-    return Ok(stock);
+    return Ok(stock.ToStockDto());
   }
 
 }

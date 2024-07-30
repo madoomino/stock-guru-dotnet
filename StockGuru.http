@@ -1,6 +1,12 @@
-@StockGuru_HostAddress = http://localhost:5007
-
-GET {{StockGuru_HostAddress}}/weatherforecast/
+@StockGuru_HostAddress = http://localhost:5007/api
+@Id = 1
+// Get All Stocks
+GET {{StockGuru_HostAddress}}/stocks
 Accept: application/json
 
+###
+
+// Get Stock By Id
+GET {{StockGuru_HostAddress}}/stocks/{{Id}}
+Accept: application/json
 ###
