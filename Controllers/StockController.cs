@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockGuru.Data;
+using StockGuru.Dtos.Stock;
 using StockGuru.Mappers;
 
 namespace StockGuru.Controllers;
@@ -26,6 +27,15 @@ public class StockController(ApplicationDbContext context) : ControllerBase
       return NotFound();
     }
     return Ok(stock.ToStockDto());
+  }
+
+  [HttpPost]
+  public IActionResult CreateStock([FromBody] CreateStockRequestDto stockDto)
+  {
+    var stock = stockDto.ToStockFromCreateDto();
+    _context.Add(stock);
+    _context.SaveChanges();
+    return CreatedAtAction(nameof(GetStock), new {id = stock.Id}, stock.ToStockDto());
   }
 
 }

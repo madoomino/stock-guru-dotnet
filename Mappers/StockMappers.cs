@@ -18,4 +18,17 @@ public static class StockMappers
       Purchase = stockModel.Purchase
     };
   }
+
+  public static Stock ToStockFromCreateDto(this CreateStockRequestDto stockDto)
+  {
+    return new Stock
+    {
+      Symbol = stockDto.Symbol,
+      CompanyName = stockDto.CompanyName,
+      MarketCap = stockDto.MarketCap,
+      Industry = stockDto.Industry,
+      LastDiv = stockDto.LastDiv,
+      Purchase = stockDto.Purchase
+    };
+  }
 }
