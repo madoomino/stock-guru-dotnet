@@ -16,7 +16,7 @@ public class StockController(ApplicationDbContext context, IStockRepo stockRepo)
   [HttpGet]
   public async Task<IActionResult> GetAll()
   {
-    var stocks = await stockRepo.GetAllAsync();
+    var stocks = await stockRepo.GetStocksAsync();
     var stocksDtos = stocks.Select(s => s.ToStockDto());
     return Ok(stocksDtos);
   }
