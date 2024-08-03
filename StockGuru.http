@@ -10,3 +10,67 @@ Accept: application/json
 GET {{StockGuru_HostAddress}}/stocks/{{Id}}
 Accept: application/json
 ###
+
+// Create Stock
+POST http://{{StockGuru_HostAddress}}/stocks
+Content-Type: application/json
+
+{
+   "symbol": "AAPL",
+    "companyName": "Apple Inc.",
+    "purchase": 150.00,
+    "lastDiv": 0.82,
+    "industry": "Technology",
+    "marketCap": 2230000000000
+}
+###
+// Create Stocks
+POST http://{{StockGuru_HostAddress}}/stocks/many
+Content-Type: application/json
+
+[
+{
+  "symbol": "1",
+  "companyName": "Apple Inc.",
+  "purchase": 150.00,
+  "lastDiv": 0.82,
+  "industry": "Technology",
+  "marketCap": 2230000000000
+},
+  {
+    "symbol": "2",
+    "companyName": "Apple Inc.",
+    "purchase": 150.00,
+    "lastDiv": 0.82,
+    "industry": "Technology",
+    "marketCap": 2230000000000
+  },
+  {
+    "symbol": "3",
+    "companyName": "Apple Inc.",
+    "purchase": 150.00,
+    "lastDiv": 0.82,
+    "industry": "Technology",
+    "marketCap": 2230000000000
+  }
+]
+###
+
+// Update Stock
+PUT http://{{StockGuru_HostAddress}}/stocks/3
+Content-Type: application/json
+
+{
+  "symbol": "UpdatedName",
+  "companyName": "Apple Inc.",
+  "purchase": 150.00,
+  "lastDiv": 0.82,
+  "industry": "Technology",
+  "marketCap": 2230000000000
+}
+###
+
+// Delete Stock
+DELETE http://{{StockGuru_HostAddress}}/stocks/3
+Content-Type: application/json
+###
