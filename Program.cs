@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StockGuru.Data;
+using StockGuru.Interfaces;
+using StockGuru.Repo;
 
 DotNetEnv.Env.Load();
 
@@ -14,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
     {
         opts.UseSqlServer(Environment.GetEnvironmentVariable("DB_URI"));
     });
+    builder.Services.AddScoped<IStockRepo, StockRepo>();
 }
 
 var app = builder.Build();

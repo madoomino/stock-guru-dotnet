@@ -2,22 +2,23 @@
 using Microsoft.EntityFrameworkCore;
 using StockGuru.Data;
 using StockGuru.Dtos.Stock;
+using StockGuru.Interfaces;
 using StockGuru.Mappers;
 
 namespace StockGuru.Controllers;
 
 [Route("api/stocks")]
 [ApiController]
-public class StockController(ApplicationDbContext context) : ControllerBase
+public class StockController(ApplicationDbContext context, IStockRepo stockRepo) : ControllerBase
 {
   private readonly ApplicationDbContext _context = context;
 
   [HttpGet]
   public async Task<IActionResult> GetAll()
   {
-    var stocks = await _context.Stocks.ToListAsync();
+    var stocks = await stockRepo.GetAllAsync();
     var stocksDtos = stocks.Select(s => s.ToStockDto());
-    return Ok(stocks);
+    return Ok(stocksDtos);
   }
 
   [HttpGet("{id}")]
