@@ -12,25 +12,29 @@ public class StockRepo(ApplicationDbContext context) : IStockRepo
   {
     return await context.Stocks.ToListAsync();
   }
+
   public async Task<Stock?> GetStockAsync(int id)
   {
     return await context.Stocks.FirstOrDefaultAsync(s => s.Id == id);
   }
+
   public async Task<Stock> CreateStockAsync(Stock stock)
   {
     await context.Stocks.AddAsync(stock);
     await context.SaveChangesAsync();
     return stock;
   }
-  public async Task<Stock[]> CreateStocksAsync(Stock[] stocks)
+
+  public async Task<List<Stock>> CreateStocksAsync(List<Stock> stocks)
   {
     await context.Stocks.AddRangeAsync(stocks);
     await context.SaveChangesAsync();
     return stocks;
   }
+
   public async Task<Stock?> UpdateStockAsync(int id, UpdateStockRequestDto stockRequestDto)
   {
-    var stock = await context.Stocks.FirstOrDefaultAsync();
+    var stock = await context.Stocks.FindAsync(id);
     if (stock == null) return null;
     stock.CompanyName = stockRequestDto.CompanyName;
     stock.MarketCap = stockRequestDto.MarketCap;
@@ -42,9 +46,10 @@ public class StockRepo(ApplicationDbContext context) : IStockRepo
     await context.SaveChangesAsync();
     return stock;
   }
+
   public async Task<Stock?> DeleteStockAsync(int id)
   {
-    var stock = await context.Stocks.FirstOrDefaultAsync();
+    var stock = await context.Stocks.FindAsync(id);
     if (stock == null) return null;
 
     context.Stocks.Remove(stock);
