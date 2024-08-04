@@ -36,16 +36,6 @@ public class StockController(IStockRepo stockRepo) : ControllerBase
     return CreatedAtAction(nameof(GetStock), new { id = stock.Id }, stock.ToStockDto());
   }
 
-  [HttpPost("many")]
-  public async Task<IActionResult> CreateStocks([FromBody] CreateStockRequestDto[] stockDtos)
-  {
-    var stocks = stockDtos.Select(s => s.ToStockFromCreateDto()).ToList();
-    var createdStocks = await stockRepo.CreateStocksAsync(stocks);
-
-    var stockDtosToReturn = createdStocks.Select(s => s.ToStockDto()).ToList();
-    return CreatedAtAction(nameof(GetStock), null, stockDtosToReturn);
-  }
-
   [HttpPut("{id}")]
   public async Task<IActionResult> UpdateStock([FromRoute] int id,
     UpdateStockRequestDto updateStockDto)

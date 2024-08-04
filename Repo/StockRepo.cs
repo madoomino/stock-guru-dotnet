@@ -25,13 +25,6 @@ public class StockRepo(ApplicationDbContext context) : IStockRepo
     return stock;
   }
 
-  public async Task<List<Stock>> CreateStocksAsync(List<Stock> stocks)
-  {
-    await context.Stocks.AddRangeAsync(stocks);
-    await context.SaveChangesAsync();
-    return stocks;
-  }
-
   public async Task<Stock?> UpdateStockAsync(int id, UpdateStockRequestDto stockRequestDto)
   {
     var stock = await context.Stocks.FindAsync(id);
