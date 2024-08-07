@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
     opts.UseSqlServer(Environment.GetEnvironmentVariable("DB_URI"));
   });
   builder.Services.AddScoped<IStockRepo, StockRepo>();
+  builder.Services.AddScoped<ICommentRepo, CommentRepo>();
 }
 
 var app = builder.Build();
