@@ -4,5 +4,6 @@ namespace StockGuru.Interfaces;
 
 public interface ICommentRepo
 {
-  Task<List<Comment>> GetAllCommentsAsync();
+  Task<List<Comment>> GetCommentsAsync();
+  Task<Comment?> GetCommentByIdAsync(int id);
 }

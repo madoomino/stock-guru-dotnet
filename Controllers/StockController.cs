@@ -22,7 +22,7 @@ public class StockController(IStockRepo stockRepo) : ControllerBase
   [HttpGet("{id}")]
   public async Task<IActionResult> GetStock([FromRoute] int id)
   {
-    var stock = await stockRepo.GetStockAsync(id);
+    var stock = await stockRepo.GetStockByIdAsync(id);
     if (stock == null) return NotFound();
 
     return Ok(stock.ToStockDto());

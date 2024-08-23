@@ -10,12 +10,12 @@ public class StockRepo(ApplicationDbContext context) : IStockRepo
 {
   public async Task<List<Stock>> GetStocksAsync()
   {
-    return await context.Stocks.ToListAsync();
+    return await context.Stocks.Include(s => s.Comments).ToListAsync();
   }
 
-  public async Task<Stock?> GetStockAsync(int id)
+  public async Task<Stock?> GetStockByIdAsync(int id)
   {
-    return await context.Stocks.FirstOrDefaultAsync(s => s.Id == id);
+    return await context.Stocks.Include(s => s.Comments).FirstOrDefaultAsync(s => s.Id == id);
   }
 
   public async Task<Stock> CreateStockAsync(Stock stock)

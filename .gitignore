@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+# sqlite
+stockguru.db
+
 # User-specific files
 *.rsuser
 *.suo
