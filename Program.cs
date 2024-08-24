@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 
   builder.Services.AddDbContext<ApplicationDbContext>(opts =>
   {
-    opts.UseSqlite($"Data Source={Environment.GetEnvironmentVariable("DB_URI")}");
+    opts.UseSqlite($"Data Source={Environment.GetEnvironmentVariable("SQLITE_FILE")}");
   });
   builder.Services.AddScoped<IStockRepo, StockRepo>();
   builder.Services.AddScoped<ICommentRepo, CommentRepo>();

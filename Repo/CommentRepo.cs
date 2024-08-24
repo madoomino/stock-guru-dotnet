@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StockGuru.Data;
+using StockGuru.Dtos.Comment;
 using StockGuru.Interfaces;
 using StockGuru.Models;
 
@@ -16,5 +17,13 @@ public class CommentRepo(ApplicationDbContext context) : ICommentRepo
   public async Task<Comment?> GetCommentByIdAsync(int id)
   {
     return await context.Comments.FindAsync(id);
+  }
+
+
+  public async Task<Comment> CreateCommentAsync(Comment comment)
+  {
+    await context.Comments.AddAsync(comment);
+    await context.SaveChangesAsync();
+    return comment;
   }
 }
