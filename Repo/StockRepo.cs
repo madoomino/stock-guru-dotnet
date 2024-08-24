@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StockGuru.Data;
 using StockGuru.Dtos.Stock;
+using StockGuru.Helpers;
 using StockGuru.Interfaces;
 using StockGuru.Models;
 
@@ -8,9 +9,17 @@ namespace StockGuru.Repo;
 
 public class StockRepo(ApplicationDbContext context) : IStockRepo
 {
-  public async Task<List<Stock>> GetStocksAsync()
+  public async Task<List<Stock>> GetStocksAsync(QueryObject queryObject)
   {
-    return await context.Stocks.Include(s => s.Comments).ToListAsync();
+    var stocks = context.Stocks.Include(s => s.Comments).AsQueryable();
+
+    if (!string.IsNullOrWhiteSpace(queryObject.CompanyName))
+      stocks = stocks.Where(s => s.CompanyName.Contains(queryObject.CompanyName));
+
+    if (!string.IsNullOrWhiteSpace(queryObject.Symbol))
+      stocks = stocks.Where(s => s.Symbol.Contains(queryObject.Symbol));
+
+    return await stocks.ToListAsync();
   }
 
   public async Task<Stock?> GetStockByIdAsync(int id)

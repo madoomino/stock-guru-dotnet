@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StockGuru.Dtos.Stock;
+using StockGuru.Helpers;
 using StockGuru.Interfaces;
 using StockGuru.Mappers;
 
@@ -10,11 +11,9 @@ namespace StockGuru.Controllers;
 public class StockController(IStockRepo stockRepo) : ControllerBase
 {
   [HttpGet]
-  public async Task<IActionResult> GetAll()
+  public async Task<IActionResult> GetAll([FromQuery] QueryObject queryObject)
   {
-    if (!ModelState.IsValid) return BadRequest(ModelState);
-
-    var stocks = await stockRepo.GetStocksAsync();
+    var stocks = await stockRepo.GetStocksAsync(queryObject);
     var stocksDtos = stocks.Select(s => s.ToStockDto());
     return Ok(stocksDtos);
   }
@@ -22,8 +21,6 @@ public class StockController(IStockRepo stockRepo) : ControllerBase
   [HttpGet("{id:int}")]
   public async Task<IActionResult> GetStock([FromRoute] int id)
   {
-    if (!ModelState.IsValid) return BadRequest(ModelState);
-
     var stock = await stockRepo.GetStockByIdAsync(id);
     if (stock == null) return NotFound();
 

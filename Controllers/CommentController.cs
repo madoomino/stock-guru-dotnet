@@ -13,8 +13,6 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
   [HttpGet]
   public async Task<IActionResult> GetAllComments()
   {
-    if (!ModelState.IsValid) return BadRequest(ModelState);
-
     var comments = await commentRepo.GetCommentsAsync();
     var commentDtos = comments.Select(c => c.ToCommentDto());
     return Ok(commentDtos);
@@ -23,8 +21,6 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
   [HttpGet("{id:int}")]
   public async Task<IActionResult> GetCommentByIdAsync([FromRoute] int id)
   {
-    if (!ModelState.IsValid) return BadRequest(ModelState);
-
     var comment = await commentRepo.GetCommentByIdAsync(id);
     if (comment == null) return NotFound();
 
