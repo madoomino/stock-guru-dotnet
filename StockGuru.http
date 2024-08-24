@@ -1,5 +1,7 @@
 @StockGuru_HostAddress = http://localhost:5007/api
-@Id = 1
+
+######################
+
 // Get All Stocks
 GET {{StockGuru_HostAddress}}/stocks
 Accept: application/json
@@ -7,57 +9,12 @@ Accept: application/json
 ###
 
 // Get Stock By Id
-GET {{StockGuru_HostAddress}}/stocks/{{Id}}
+GET {{StockGuru_HostAddress}}/stocks/id
 Accept: application/json
 ###
 
-// Create Stock
-POST http://{{StockGuru_HostAddress}}/stocks
-Content-Type: application/json
-
-{
-   "symbol": "AAPL",
-    "companyName": "Apple Inc.",
-    "purchase": 150.00,
-    "lastDiv": 0.82,
-    "industry": "Technology",
-    "marketCap": 2230000000000
-}
-###
-// Create Stocks
-POST http://{{StockGuru_HostAddress}}/stocks/many
-Content-Type: application/json
-
-[
-{
-  "symbol": "1",
-  "companyName": "Apple Inc.",
-  "purchase": 150.00,
-  "lastDiv": 0.82,
-  "industry": "Technology",
-  "marketCap": 2230000000000
-},
-  {
-    "symbol": "2",
-    "companyName": "Apple Inc.",
-    "purchase": 150.00,
-    "lastDiv": 0.82,
-    "industry": "Technology",
-    "marketCap": 2230000000000
-  },
-  {
-    "symbol": "3",
-    "companyName": "Apple Inc.",
-    "purchase": 150.00,
-    "lastDiv": 0.82,
-    "industry": "Technology",
-    "marketCap": 2230000000000
-  }
-]
-###
-
 // Update Stock
-PUT http://{{StockGuru_HostAddress}}/stocks/3
+PUT http://{{StockGuru_HostAddress}}/stocks/id
 Content-Type: application/json
 
 {
@@ -71,6 +28,44 @@ Content-Type: application/json
 ###
 
 // Delete Stock
-DELETE http://{{StockGuru_HostAddress}}/stocks/3
+DELETE http://{{StockGuru_HostAddress}}/stocks/id
+Content-Type: application/json
+
+
+#######################################
+
+// Get All Comments
+GET {{StockGuru_HostAddress}}/comments
+Accept: application/json
+
+###
+
+// Get Comment By Id
+GET {{StockGuru_HostAddress}}/comments/id
+Accept: application/json
+###
+
+// Create Comment
+POST http://{{StockGuru_HostAddress}}/comments/stockId
+Content-Type: application/json
+
+{
+  "title": "string",
+  "content": "string"
+}
+###
+
+// Update Comment
+PUT http://{{StockGuru_HostAddress}}/comments/id
+Content-Type: application/json
+
+{
+  "title": "string",
+  "content": "string"
+}
+###
+
+// Delete Comment
+DELETE http://{{StockGuru_HostAddress}}/comments/id
 Content-Type: application/json
 ###

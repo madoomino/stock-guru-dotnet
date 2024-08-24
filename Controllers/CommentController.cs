@@ -18,7 +18,7 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
     return Ok(commentDtos);
   }
 
-  [HttpGet("{id}")]
+  [HttpGet("{id:int}")]
   public async Task<IActionResult> GetCommentByIdAsync([FromRoute] int id)
   {
     var comment = await commentRepo.GetCommentByIdAsync(id);
@@ -27,7 +27,7 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
     return Ok(comment);
   }
 
-  [HttpPost("{stockId}")]
+  [HttpPost("{stockId:int}")]
   public async Task<IActionResult> CreateComment([FromRoute] int stockId,
     CreateCommentDto commentDto)
   {
@@ -39,7 +39,7 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
     return Ok(comment);
   }
 
-  [HttpPut("{id}")]
+  [HttpPut("{id:int}")]
   public async Task<IActionResult> UpdateCommentAsync([FromRoute] int id,
     UpdateCommentDto commentDto)
   {
@@ -48,7 +48,7 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
     return Ok(comment.ToCommentDto());
   }
 
-  [HttpDelete("{id}")]
+  [HttpDelete("{id:int}")]
   public async Task<IActionResult> DeleteCommentAsync([FromRoute] int id)
   {
     var deletedComment = await commentRepo.DeleteCommentAsync(id);
