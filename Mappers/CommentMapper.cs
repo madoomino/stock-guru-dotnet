@@ -16,13 +16,23 @@ public static class CommentMapper
       StockId = comment.StockId
     };
   }
+
   public static Comment ToCommentFromCreateDto(this CreateCommentDto commentDto, int stockId)
+  {
+    return new Comment
     {
-      return new Comment
-      {
-        Title = commentDto.Title,
-        Content = commentDto.Content,
-        StockId = stockId
-      };
-    }
+      Title = commentDto.Title,
+      Content = commentDto.Content,
+      StockId = stockId
+    };
+  }
+
+  public static Comment ToCommentFromUpdateDto(this UpdateCommentDto commentDto, int stockId)
+  {
+    return new Comment
+    {
+      Title = commentDto.Title,
+      Content = commentDto.Content
+    };
+  }
 }

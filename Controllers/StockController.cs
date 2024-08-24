@@ -49,7 +49,7 @@ public class StockController(IStockRepo stockRepo) : ControllerBase
   public async Task<IActionResult> DeleteStock([FromRoute] int id)
   {
     var stock = await stockRepo.DeleteStockAsync(id);
-    if (stock == null) return NotFound();
+    if (stock == null) return BadRequest("Stock not found.");
     return NoContent();
   }
 }
