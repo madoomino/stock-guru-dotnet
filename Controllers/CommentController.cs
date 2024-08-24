@@ -13,6 +13,8 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
   [HttpGet]
   public async Task<IActionResult> GetAllComments()
   {
+    if (!ModelState.IsValid) return BadRequest(ModelState);
+
     var comments = await commentRepo.GetCommentsAsync();
     var commentDtos = comments.Select(c => c.ToCommentDto());
     return Ok(commentDtos);
@@ -21,6 +23,8 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
   [HttpGet("{id:int}")]
   public async Task<IActionResult> GetCommentByIdAsync([FromRoute] int id)
   {
+    if (!ModelState.IsValid) return BadRequest(ModelState);
+
     var comment = await commentRepo.GetCommentByIdAsync(id);
     if (comment == null) return NotFound();
 
@@ -31,6 +35,8 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
   public async Task<IActionResult> CreateComment([FromRoute] int stockId,
     CreateCommentDto commentDto)
   {
+    if (!ModelState.IsValid) return BadRequest(ModelState);
+
     var stockExists = await stockRepo.StockExists(stockId);
     if (!stockExists) return BadRequest("Stock not found.");
 
@@ -43,6 +49,8 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
   public async Task<IActionResult> UpdateCommentAsync([FromRoute] int id,
     UpdateCommentDto commentDto)
   {
+    if (!ModelState.IsValid) return BadRequest(ModelState);
+
     var comment = await commentRepo.UpdateCommentAsync(id, commentDto);
     if (comment == null) return BadRequest("Comment not found.");
     return Ok(comment.ToCommentDto());
@@ -51,6 +59,8 @@ public class CommentController(ICommentRepo commentRepo, IStockRepo stockRepo) :
   [HttpDelete("{id:int}")]
   public async Task<IActionResult> DeleteCommentAsync([FromRoute] int id)
   {
+    if (!ModelState.IsValid) return BadRequest(ModelState);
+
     var deletedComment = await commentRepo.DeleteCommentAsync(id);
     if (deletedComment == null) return BadRequest("Comment not found.");
     return NoContent();

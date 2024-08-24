@@ -11,6 +11,7 @@ Accept: application/json
 // Get Stock By Id
 GET {{StockGuru_HostAddress}}/stocks/id
 Accept: application/json
+
 ###
 
 // Update Stock
@@ -25,6 +26,7 @@ Content-Type: application/json
   "industry": "Technology",
   "marketCap": 2230000000000
 }
+
 ###
 
 // Delete Stock
@@ -43,6 +45,7 @@ Accept: application/json
 // Get Comment By Id
 GET {{StockGuru_HostAddress}}/comments/id
 Accept: application/json
+
 ###
 
 // Create Comment
@@ -53,6 +56,7 @@ Content-Type: application/json
   "title": "string",
   "content": "string"
 }
+
 ###
 
 // Update Comment
@@ -63,9 +67,11 @@ Content-Type: application/json
   "title": "string",
   "content": "string"
 }
+
 ###
 
 // Delete Comment
 DELETE http://{{StockGuru_HostAddress}}/comments/id
 Content-Type: application/json
+
 ###
